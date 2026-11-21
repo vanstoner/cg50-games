@@ -1,0 +1,40 @@
+name: Build CG50 Games
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths: ['games/**']
+  pull_request:
+    paths: ['games/**']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/cg50-fxsdk:latest
+    strategy:
+      matrix:
+        game: [tetris] # Add new folder names here as you port more games
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile ${{ matrix.game }} (.g3a)
+        working-directory: games/${{ matrix.game }}
+        run: fxsdk build-cg
+
+      - name: Upload .g3a Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.game }}-g3a
+          path: games/${{ matrix.game }}/*.g3a
+
+      - name: Attach to GitHub Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: games/${{ matrix.game }}/*.g3a
