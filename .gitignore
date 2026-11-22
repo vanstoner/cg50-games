@@ -4,3 +4,4 @@ build-fx/
 build-cg-push/
 *.g3a
 *.g1a
+__pycache__/
