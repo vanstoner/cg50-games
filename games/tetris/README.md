@@ -24,6 +24,10 @@ When you finish you won't just have Tetris. You'll know the handful of ideas tha
 
 ## Before you start
 
+### Never written C before?
+
+That's fine! Most people learn Scratch or Python first. C works differently in a few important ways, so have a look at **[C for Scratch and Python coders](../../docs/C-PRIMER.md)** before you begin. You don't need to memorise it. Skim it, and come back when something in this guide looks strange.
+
 ### Make your own copy
 
 Don't type over the finished game. Make your own project next to it:
@@ -117,7 +121,9 @@ dupdate();           // 2. show it
 
 ### The C you'll need
 
-You don't need to know much C to start. Here's what this guide uses, with examples:
+> 📘 **New to C?** If you've coded in **Scratch** or **Python** but not C, read **[C for Scratch and Python coders](../../docs/C-PRIMER.md)** first. It shows every idea used in this guide side by side in Scratch, Python and C. It covers how the build works (including what `CMakeLists.txt` is for), types, loops, arrays, structs, and the dreaded pointers. Then come back here.
+
+Here's a quick reminder of what this guide uses:
 
 ```c
 int score = 0;              // a variable holding a whole number

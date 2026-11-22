@@ -10,6 +10,7 @@ It's here to try ideas, break things and learn how real programs get built. Noth
 games/      Games you can play on the calculator
   tetris/   Full Tetris, plus a step-by-step guide to building it yourself
 tools/      Handy programs and utilities (coming soon)
+docs/       Guides, like C for Scratch and Python coders
 docker/     The recipe for the build toolchain (you rarely need to touch this)
 emulator/   A pretend CG50 that runs in your browser (see below)
 .github/    The robots that build everything automatically
@@ -36,7 +37,9 @@ Setting these up by hand is fiddly, so it's all packed into a Docker image. GitH
 
 ## Making something new
 
-New to this? Start with the [Tetris guide](games/tetris/README.md). It builds a whole game from an empty file, one layer at a time, and finishes with a template and ideas for making your own.
+New to C? If you know Scratch or Python, [C for Scratch and Python coders](docs/C-PRIMER.md) explains the differences side by side.
+
+New to making calculator games? Start with the [Tetris guide](games/tetris/README.md). It builds a whole game from an empty file, one layer at a time, and finishes with a template and ideas for making your own.
 
 1. **Copy an existing project.** Duplicate `games/tetris` into a new folder, e.g. `games/snake`.
 2. **Rename it.** In the new `CMakeLists.txt`, change `Tetris`/`tetris` to your project's name.
