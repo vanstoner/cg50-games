@@ -1,0 +1,227 @@
+/*
+ * Shared look for every seasonal printable (A4, 1-2 sides).
+ *
+ * Link it from a printable with:
+ *   <link rel="stylesheet" href="../../../printable-kit/theme.css">
+ * and wrap each A4 side in <div class="page">...</div>.
+ *
+ * Each event can set its own colours by overriding the variables, e.g.
+ *   <style> :root { --accent: #ff7a00; --accent-deep: #d65f00; } </style>
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600&family=Sacramento&family=Nunito:wght@600;800&family=Source+Code+Pro:wght@500;700&display=swap");
+
+:root {
+  --accent: #f08c8c;        /* big headline, box borders */
+  --accent-deep: #e86b72;   /* box headings */
+  --heading: #e2238c;       /* step headings and number badges */
+  --script: #8a3fa8;        /* the script word above the title */
+  --ink: #1d1d1f;
+  --soft: #fff1f3;          /* tinted panels */
+  --code-bg: #fbfbfd;
+  --highlight: #ffe0e8;     /* "change this part" in code */
+}
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--ink); }
+body {
+  font-family: "Nunito", system-ui, sans-serif;
+  font-weight: 600;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* One A4 side */
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 10mm 12mm 8mm;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+.grow { flex: 1; }
+
+@media screen {
+  body { background: #e9e9ee; padding: 8mm 0; }
+  .page { background: #fff; box-shadow: 0 2px 18px rgba(0,0,0,0.15); margin-bottom: 8mm; }
+}
+
+/* ---------- Header ---------- */
+.ss-header { position: relative; margin-bottom: 3mm; }
+.ss-script {
+  font-family: "Sacramento", cursive;
+  color: var(--script);
+  font-size: 28pt;
+  line-height: 0.8;
+  margin: 0 0 0 2mm;
+}
+.ss-title {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 40pt;
+  line-height: 0.95;
+  letter-spacing: 0.5pt;
+  margin: 0;
+}
+.ss-title.small { font-size: 26pt; }
+.ss-intro {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 11.5pt;
+  margin: 1.5mm 0 0;
+  max-width: 135mm;
+}
+.ss-part {
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 10pt;
+  color: #fff;
+  background: var(--heading);
+  border-radius: 10mm;
+  padding: 0.6mm 3.5mm;
+  margin-bottom: 1.5mm;
+  letter-spacing: 0.3pt;
+}
+.doodle { position: absolute; }
+
+/* ---------- Text ---------- */
+h2 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  color: var(--heading);
+  font-size: 14pt;
+  margin: 0 0 1.2mm;
+  line-height: 1.1;
+}
+h2 .num {
+  display: inline-block;
+  background: var(--heading);
+  color: #fff;
+  border-radius: 50%;
+  width: 6.2mm; height: 6.2mm;
+  line-height: 6.2mm;
+  text-align: center;
+  font-size: 11pt;
+  margin-right: 1.5mm;
+  vertical-align: 1px;
+}
+p, li { font-size: 9.5pt; line-height: 1.38; margin: 0; }
+p + p { margin-top: 1.5mm; }
+section { margin-bottom: 4mm; }
+.mono, code { font-family: "Source Code Pro", monospace; font-weight: 700; }
+.muted { color: #555; }
+
+ul.hearts { list-style: none; padding: 0; margin: 0; }
+ul.hearts li { padding-left: 5mm; position: relative; margin-bottom: 0.6mm; }
+ul.hearts li::before { content: "♥"; color: var(--accent); position: absolute; left: 0; top: -0.2mm; }
+
+/* ---------- Panels and boxes ---------- */
+.panel { background: var(--soft); border-radius: 3mm; padding: 2.5mm 3.5mm; }
+.box {
+  border: 0.7mm solid var(--accent);
+  border-radius: 5mm;
+  padding: 2.5mm 4mm;
+}
+.box h2 { color: var(--accent-deep); }
+.box ul { margin: 0; padding-left: 4.5mm; }
+.box p, .box li { font-size: 9pt; line-height: 1.34; }
+.box li { margin-bottom: 0.6mm; }
+
+/* ---------- Code ---------- */
+pre.code {
+  font-family: "Source Code Pro", monospace;
+  font-weight: 500;
+  font-size: 8pt;
+  line-height: 1.32;
+  background: var(--code-bg);
+  border: 0.4mm solid var(--ink);
+  border-radius: 3mm;
+  padding: 3mm 3.5mm;
+  margin: 1.5mm 0 0;
+  white-space: pre;
+  overflow: hidden;
+}
+pre.code .c { color: #8b8b95; }
+pre.code .k { color: var(--script); font-weight: 700; }
+pre.code .hl {
+  background: var(--highlight);
+  display: inline-block;
+  width: 100%;
+  margin: 0 -1mm;
+  padding: 0 1mm;
+}
+/* Numbered markers in code, explained in a list beside it */
+.anno {
+  display: inline-block;
+  width: 4.2mm; height: 4.2mm;
+  line-height: 4.2mm;
+  border-radius: 50%;
+  background: var(--heading);
+  color: #fff;
+  font-family: "Oswald", sans-serif;
+  font-size: 7pt;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: 0.3mm;
+  margin-left: 1.5mm;
+}
+ol.notes { list-style: none; padding: 0; margin: 0; }
+ol.notes li { position: relative; padding-left: 6mm; margin-bottom: 2mm; font-size: 9pt; }
+ol.notes li .anno { position: absolute; left: 0; top: 0.3mm; margin: 0; }
+
+/* ---------- Keys ---------- */
+.keys { display: flex; flex-wrap: wrap; gap: 1.6mm 3mm; margin-top: 1.5mm; }
+.key { font-size: 9pt; white-space: nowrap; }
+.key b {
+  display: inline-block;
+  min-width: 6mm;
+  text-align: center;
+  border: 0.35mm solid var(--ink);
+  border-bottom-width: 0.8mm;
+  border-radius: 1.3mm;
+  padding: 0 1mm;
+  margin-right: 0.8mm;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 8.5pt;
+  background: #fff;
+}
+
+/* ---------- Pixel grids for designing ---------- */
+.design { display: flex; gap: 4mm; align-items: flex-start; }
+.grid { display: grid; border: 0.5mm solid var(--ink); }
+.grid span { border: 0.2mm solid #9a9a9a; }
+.rows { display: grid; margin-top: 0.5mm; }
+.rows div {
+  font-family: "Source Code Pro", monospace;
+  font-size: 10pt;
+  border-bottom: 0.25mm dashed #b8b8b8;
+  display: flex; align-items: flex-end; padding-bottom: 0.4mm;
+}
+.mini { display: grid; gap: 0.3mm; flex: none; }
+.mini span.on { background: var(--heading); }
+
+/* ---------- Footer ---------- */
+.ss-footer { display: flex; align-items: center; gap: 4mm; margin-top: 3mm; }
+.logo-slot {
+  width: 30mm; height: 13mm;
+  border: 0.4mm dashed #b8b8b8;
+  border-radius: 2mm;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  font-size: 7pt; color: #9a9a9a;
+  line-height: 1.2;
+  flex: none;
+}
+.legal { font-size: 6.6pt; color: #555; line-height: 1.35; }
+.legal b { color: var(--ink); }
+.pageno { margin-left: auto; font-family: "Oswald", sans-serif; font-size: 8pt; color: #999; }

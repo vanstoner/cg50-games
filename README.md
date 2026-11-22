@@ -9,6 +9,7 @@ It's here to try ideas, break things and learn how real programs get built. Noth
 ```
 games/      Games you can play on the calculator
   tetris/   Full Tetris, plus a step-by-step guide to building it yourself
+seasonal/   A project for each celebration through the year, with printables
 tools/      Handy programs and utilities (coming soon)
 docs/       Guides, like C for Scratch and Python coders
 docker/     The recipe for the build toolchain (you rarely need to touch this)
@@ -27,6 +28,10 @@ The CG50 can't run code written on a laptop as-is. Programs have to be **compile
 
 Setting these up by hand is fiddly, so it's all packed into a Docker image. GitHub builds it for us.
 
+## Seasonal projects 🎄💗🎃
+
+Short projects for celebrations through the year: Valentine's Day, Easter, Halloween, Diwali, Christmas and more. Each comes with a **printable** (1–2 A4 sides) to design something on paper first, and the code to bring it to life. See the [seasonal calendar](seasonal/README.md). The first one, [Beating Heart](seasonal/valentines-day/beating-heart/), is ready to try.
+
 ## Getting a game onto the calculator
 
 1. Open the **Actions** tab on GitHub and click the latest **Build CG50 Games** run.
@@ -43,9 +48,10 @@ New to making calculator games? Start with the [Tetris guide](games/tetris/READM
 
 1. **Copy an existing project.** Duplicate `games/tetris` into a new folder, e.g. `games/snake`.
 2. **Rename it.** In the new `CMakeLists.txt`, change `Tetris`/`tetris` to your project's name.
-3. **Add it to the build.** In `.github/workflows/build-games.yml`, add your folder name to the list:
+3. **Add it to the build.** In `.github/workflows/build-games.yml`, add your project to the list:
    ```yaml
-   game: [tetris, snake]
+   - name: snake
+     path: games/snake
    ```
 4. **Write some code** in `src/main.c`, push it to GitHub, and the robots build it for you.
 

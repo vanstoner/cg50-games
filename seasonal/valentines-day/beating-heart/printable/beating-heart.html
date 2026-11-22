@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code a Beating Heart</title>
+<link rel="stylesheet" href="../../../printable-kit/theme.css">
+<style>
+  /* Page 1 */
+  .needs { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 6mm; }
+  .needs h3 { font-family: "Oswald", sans-serif; font-weight: 500; font-size: 9pt; color: #777; margin: 0 0 0.8mm; text-transform: uppercase; letter-spacing: 0.4pt; }
+
+  .big-design .grid { grid-template-columns: repeat(9, 10.5mm); grid-template-rows: repeat(8, 10.5mm); }
+  .big-design .rows { grid-template-rows: repeat(8, 10.5mm); }
+  .big-design .rows div { width: 33mm; }
+  .small-design .grid { grid-template-columns: repeat(9, 6.2mm); grid-template-rows: repeat(8, 6.2mm); }
+  .small-design .rows { grid-template-rows: repeat(8, 6.2mm); }
+  .small-design .rows div { width: 25mm; font-size: 8pt; }
+
+  .step1 { display: grid; grid-template-columns: 1fr 44mm; gap: 5mm; align-items: start; }
+  .example { text-align: center; }
+  .example .mini { grid-template-columns: repeat(9, 3.4mm); grid-template-rows: repeat(8, 3.4mm); margin: 1mm auto 2mm; width: max-content; }
+  .example pre {
+    font-family: "Source Code Pro", monospace; font-weight: 700; font-size: 9pt;
+    line-height: 1.25; margin: 0; color: var(--heading); text-align: left; display: inline-block;
+  }
+  .example p { font-size: 8.5pt; text-align: left; margin-top: 1.5mm; }
+
+  .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; }
+
+  /* Page 2 */
+  .code-cols { display: grid; grid-template-columns: 112mm 1fr; gap: 5mm; }
+  .code-cols pre.code { font-size: 7.5pt; line-height: 1.27; padding: 2.5mm 3.5mm; }
+</style>
+</head>
+<body>
+
+<!-- ======================= SIDE 1: DESIGN IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 1 · DESIGN IT</span>
+    <p class="ss-script">Valentine</p>
+    <h1 class="ss-title">CODE A BEATING HEART</h1>
+    <p class="ss-intro">Design your own pixel art, then turn it into a real computer program that runs on a Casio graphing calculator!</p>
+
+    <svg class="doodle" style="right: 2mm; top: 2mm; width: 31mm;" viewBox="0 0 120 150" aria-hidden="true">
+      <defs>
+        <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+          <line x1="0" y1="0" x2="0" y2="5" stroke="#f08c8c" stroke-width="2.2"/>
+        </pattern>
+      </defs>
+      <rect x="14" y="6" width="92" height="138" rx="12" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+      <rect x="25" y="17" width="70" height="42" rx="4" fill="#fff" stroke="#1d1d1f" stroke-width="2.5"/>
+      <g fill="#e2238c">
+        <rect x="47" y="25" width="5" height="5"/><rect x="52" y="25" width="5" height="5"/>
+        <rect x="63" y="25" width="5" height="5"/><rect x="68" y="25" width="5" height="5"/>
+        <rect x="42" y="30" width="36" height="5"/><rect x="42" y="35" width="36" height="5"/>
+        <rect x="47" y="40" width="26" height="5"/><rect x="52" y="45" width="16" height="5"/>
+        <rect x="57" y="50" width="6" height="4"/>
+      </g>
+      <g fill="none" stroke="#1d1d1f" stroke-width="2.2">
+        <rect x="26" y="68" width="14" height="9" rx="2"/><rect x="45" y="68" width="14" height="9" rx="2"/>
+        <rect x="64" y="68" width="14" height="9" rx="2"/><rect x="83" y="68" width="12" height="9" rx="2"/>
+        <circle cx="60" cy="92" r="9"/>
+        <rect x="26" y="108" width="14" height="9" rx="2"/><rect x="45" y="108" width="14" height="9" rx="2"/>
+        <rect x="64" y="108" width="14" height="9" rx="2"/><rect x="83" y="108" width="12" height="9" rx="2"/>
+        <rect x="26" y="124" width="14" height="9" rx="2"/><rect x="45" y="124" width="14" height="9" rx="2"/>
+        <rect x="64" y="124" width="14" height="9" rx="2"/>
+      </g>
+      <rect x="83" y="124" width="12" height="9" rx="2" fill="url(#hatch)" stroke="#1d1d1f" stroke-width="2.2"/>
+    </svg>
+    <svg class="doodle" style="right: 37mm; top: 12mm; width: 11mm; transform: rotate(-14deg);" viewBox="0 0 100 90" aria-hidden="true">
+      <path d="M50 84 C 18 60, 4 44, 6 26 C 8 10, 30 2, 44 16 L 50 23 L 56 16 C 70 2, 92 10, 94 26 C 96 44, 82 60, 50 84 Z" fill="url(#hatch)" stroke="#e86b72" stroke-width="4" stroke-linejoin="round"/>
+    </svg>
+    <svg class="doodle" style="right: 43mm; top: 25mm; width: 6.5mm; transform: rotate(12deg);" viewBox="0 0 100 90" aria-hidden="true">
+      <path d="M50 84 C 18 60, 4 44, 6 26 C 8 10, 30 2, 44 16 L 50 23 L 56 16 C 70 2, 92 10, 94 26 C 96 44, 82 60, 50 84 Z" fill="none" stroke="#8a3fa8" stroke-width="6" stroke-linejoin="round"/>
+    </svg>
+  </header>
+
+  <section>
+    <h2>You'll need</h2>
+    <div class="needs">
+      <div>
+        <h3>Part 1 (this side)</h3>
+        <ul class="hearts">
+          <li>Coloured pencils</li>
+          <li>That's it!</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Part 2 (other side)</h3>
+        <ul class="hearts">
+          <li>Casio fx-CG50 calculator and its USB cable</li>
+          <li>A computer with the free fxSDK tools (a grown-up can help set these up)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">1</span>Design your heart</h2>
+    <p>Colour in squares on the grid to make a heart. Then, on the line next to each row, write <span class="mono">#</span> for every coloured square and <span class="mono">.</span> for every empty one. Every row needs <b>9</b> symbols.</p>
+
+    <div class="step1" style="margin-top: 3mm;">
+      <div class="design big-design">
+        <div class="grid">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="rows"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+
+      <div class="example panel">
+        <h2 style="font-size: 12pt; margin: 0;">Like this!</h2>
+        <div class="mini">
+          <span></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span><span class="on"></span><span class="on"></span><span></span>
+          <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+          <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+          <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+          <span></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span>
+          <span></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
+          <span></span><span></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span>
+        </div>
+<pre>.##...##.
+####.####
+#########
+#########
+.#######.
+..#####..
+...###...
+....#....</pre>
+        <p>Check: count the symbols in each row. There should be 9!</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="lower grow">
+    <section>
+      <h2>Design another!</h2>
+      <p style="margin-bottom: 2mm;">A star? A smiley? Your initials? Use this grid, and swap it in later.</p>
+      <div class="design small-design">
+        <div class="grid">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="rows"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+    </section>
+
+    <div class="box">
+      <h2>What's going on?</h2>
+      <p>Every picture on a screen is made of tiny coloured dots called <b>pixels</b>. The calculator screen has <b>396</b> across and <b>224</b> down: that's <b>88,704</b> pixels!</p>
+      <p>Your rows of <span class="mono">#</span> and <span class="mono">.</span> are a <b>map</b> of your picture. Computers are brilliant at following maps like this. On the other side, a program reads your map row by row and draws a little square for every <span class="mono">#</span>.</p>
+      <p>Game makers designed characters exactly like this, square by square, for old games like Space Invaders and Pac-Man.</p>
+    </div>
+  </div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>www.science-sparks.com</p>
+    <span class="pageno">1 / 2 · turn over to code it →</span>
+  </footer>
+</div>
+
+<!-- ======================= SIDE 2: CODE IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 2 · CODE IT</span>
+    <h1 class="ss-title small">CODE A BEATING HEART</h1>
+  </header>
+
+  <section>
+    <h2><span class="num">2</span>Type the code</h2>
+    <p>Type this into <span class="mono">main.c</span>, putting <b>your</b> rows from Part 1 in the pink part. Computers are fussy: every <span class="mono">;</span>, bracket and quote mark matters!</p>
+  </section>
+
+  <div class="code-cols">
+<pre class="code"><span class="k">#include</span> &lt;gint/display.h&gt;
+<span class="k">#include</span> &lt;gint/keyboard.h&gt;
+<span class="k">#include</span> &lt;gint/gint.h&gt;
+
+<span class="c">/* Your design! # = colour in, . = leave empty */</span>
+<span class="k">const char</span> *HEART[] = {<span class="anno">1</span>
+<span class="hl">    ".##...##.",
+    "####.####",
+    "#########",
+    "#########",
+    ".#######.",
+    "..#####..",
+    "...###...",
+    "....#....",</span>
+};
+
+<span class="k">int</span> main(<span class="k">void</span>)
+{
+    gint_setrestart(1);<span class="anno">2</span>
+    <span class="k">int</span> size = 16;<span class="anno">3</span>
+    <span class="k">int</span> colour = C_RED;
+
+    <span class="k">while</span> (1) {<span class="anno">4</span>
+        dclear(C_WHITE);
+        <span class="k">int</span> left = (DWIDTH - 9 * size) / 2;<span class="anno">5</span>
+        <span class="k">int</span> top = (DHEIGHT - 8 * size) / 2;
+        <span class="k">for</span> (<span class="k">int</span> row = 0; row &lt; 8; row++)<span class="anno">6</span>
+            <span class="k">for</span> (<span class="k">int</span> col = 0; col &lt; 9; col++)
+                <span class="k">if</span> (HEART[row][col] == '#') {
+                    <span class="k">int</span> x = left + col * size;
+                    <span class="k">int</span> y = top + row * size;
+                    drect(x, y, x + size - 2,
+                          y + size - 2, colour);
+                }
+        dupdate();<span class="anno">7</span>
+
+        <span class="k">int</span> key = getkey().key;<span class="anno">8</span>
+        <span class="k">if</span> (key == KEY_EXIT) <span class="k">break</span>;
+        <span class="k">if</span> (key == KEY_UP &amp;&amp; size &lt; 24)  size = size + 2;
+        <span class="k">if</span> (key == KEY_DOWN &amp;&amp; size &gt; 4) size = size - 2;
+        <span class="k">if</span> (key == KEY_F1) colour = C_RED;
+        <span class="k">if</span> (key == KEY_F2) colour = C_RGB(31, 10, 20);
+    }
+    <span class="k">return</span> 0;
+}</pre>
+
+    <div>
+      <h2 style="font-size: 12pt;">What each part does</h2>
+      <ol class="notes">
+        <li><span class="anno">1</span><b>Your design.</b> Each <span class="mono">"…"</span> is one row of your grid.</li>
+        <li><span class="anno">2</span>Lets you open the program again straight after you quit it.</li>
+        <li><span class="anno">3</span><b>Variables:</b> <span class="mono">size</span> is how many pixels wide each square is; <span class="mono">colour</span> is what colour to draw.</li>
+        <li><span class="anno">4</span><b>Repeat forever:</b> clear the screen, draw, wait for a key, and go round again.</li>
+        <li><span class="anno">5</span>Work out where to start drawing so the heart sits in the <b>middle</b> of the screen, whatever its size.</li>
+        <li><span class="anno">6</span><b>Two loops:</b> visit every row, and every column in that row. Wherever your map has a <span class="mono">#</span>, draw a square.</li>
+        <li><span class="anno">7</span>Show everything we've drawn.</li>
+        <li><span class="anno">8</span>Wait for a key, then change the size or colour. <b>EXIT</b> stops.</li>
+      </ol>
+      <h2 style="margin-top: 5mm;"><span class="num">3</span>Run it!</h2>
+      <ol style="margin: 0 0 2.5mm; padding-left: 5mm;">
+        <li>Build the program on the computer with <span class="mono">fxsdk build-cg</span>. It makes <span class="mono">Heart.g3a</span>.</li>
+        <li>Plug in the calculator and press <b>F1</b> (USB Flash).</li>
+        <li>Copy <span class="mono">Heart.g3a</span> onto it, then eject it safely.</li>
+        <li>Press <b>MENU</b>, find <b>Heart</b>, and press <b>EXE</b>.</li>
+      </ol>
+      <div class="panel">
+        <p><b>Make it beat!</b></p>
+        <div class="keys">
+          <span class="key"><b>▲</b>bigger</span>
+          <span class="key"><b>▼</b>smaller</span>
+          <span class="key"><b>F1</b>red</span>
+          <span class="key"><b>F2</b>pink</span>
+          <span class="key"><b>EXIT</b>stop</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="box" style="margin-top: 4mm;">
+    <h2>More fun</h2>
+    <ul>
+      <li>Swap in your second design from Part 1.</li>
+      <li>Mix your own colour: <span class="mono">C_RGB(red, green, blue)</span>, with each number from 0 to 31. What does <span class="mono">C_RGB(31, 31, 0)</span> make?</li>
+      <li>Make your design wider or taller. Which numbers in the code need to change?</li>
+      <li>Challenge: can you make the heart beat <b>all by itself</b>?</li>
+    </ul>
+  </div>
+
+  <div class="grow"></div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>www.science-sparks.com</p>
+    <span class="pageno">2 / 2</span>
+  </footer>
+</div>
+
+</body>
+</html>
