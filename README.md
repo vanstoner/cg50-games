@@ -11,6 +11,7 @@ games/      Games you can play on the calculator
   tetris/   A very early Tetris (a block falls, you can move it)
 tools/      Handy programs and utilities (coming soon)
 docker/     The recipe for the build toolchain (you rarely need to touch this)
+emulator/   A pretend CG50 that runs in your browser (see below)
 .github/    The robots that build everything automatically
 ```
 
@@ -60,10 +61,28 @@ docker build -t cg50-fxsdk docker
 ```
 
 ```bash
-docker run --rm -v "$PWD/games/tetris:/w" -w /w cg50-fxsdk fxsdk build-cg
+docker run --rm -v "$PWD/games/tetris:/workspace/game" -w /workspace/game cg50-fxsdk fxsdk build-cg
 ```
 
 The first command takes a while (it builds a whole compiler). After that, builds take seconds.
+
+## Test it in the emulator first 🖥️
+
+You don't need the calculator to try your game. There's an emulator (a pretend calculator) that runs in your web browser:
+
+```bash
+./run-emulator.sh games/tetris
+```
+
+Then open **http://localhost:6080**. You'll see the calculator screen with its keypad underneath.
+
+- The **arrow keys** on your keyboard work. Click the on-screen buttons for everything else (like **EXIT**).
+- Each run rebuilds your game first, so you always see your latest code.
+- Press **Ctrl+C** in the terminal to stop.
+
+The emulator is [casio-emu](https://github.com/Heath123/casio-emu). It's very good but not perfect. If something looks odd, try it on the real calculator before spending ages hunting a bug.
+
+If you built the toolchain yourself, point the script at your image: `FXSDK_IMAGE=cg50-fxsdk ./run-emulator.sh games/tetris`.
 
 ## Ideas board
 
