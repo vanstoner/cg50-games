@@ -79,7 +79,27 @@ From the top folder of the repo:
 
 The GitHub build also compiles every Casio version. Download its `.g3a` from the **Actions** tab, and copy it to the calculator as described in the [main README](../README.md#getting-a-game-onto-the-calculator).
 
-For a micro:bit version, paste its `main.py` into [python.microbit.org](https://python.microbit.org). It has a simulator, and a button to send the code to a plugged-in micro:bit.
+For a micro:bit version, paste its `main.py` into [python.microbit.org](https://python.microbit.org). It has a simulator, and a button to send the code to a plugged-in micro:bit. New to the micro:bit? Read the next section first.
+
+## First time with a micro:bit?
+
+You don't need to install anything. The editor runs in a web browser, on a Mac, Windows PC or Chromebook.
+
+1. **Use Chrome or Edge.** "Send to micro:bit" talks to the board over USB from the browser, which Safari and Firefox can't do. (The Save-and-drag method in step 6 works in any browser.)
+2. **Use a USB data cable.** Some micro-USB cables only charge and carry no data. If the computer doesn't see the micro:bit, try another cable.
+3. **Plug it in.** A drive called **MICROBIT** appears (in Finder on a Mac). That's how you know the cable works.
+4. **Open [python.microbit.org](https://python.microbit.org)**, delete the starter code, and paste in the project's `main.py`. (On GitHub, open the file and use the copy button.)
+5. **Try it in the simulator** first: press ▶ on the pretend micro:bit.
+6. **Put it on the micro:bit:**
+   - Click **Send to micro:bit**, pick your micro:bit in the browser's pop-up, and click **Connect**. The light on the back flashes while it copies.
+   - **Or** click **Save** to download a `.hex` file, then drag it onto the **MICROBIT** drive. The drive disappears and comes back afterwards, which is normal.
+7. **Unplug it** and run it from a battery pack if you like.
+
+**Is mine a V1 or a V2?** A V2 says "V2" or has a gold microphone symbol on the back. It has a built-in speaker, so it can play sounds. A V1 is silent unless you connect headphones to pin 0 and GND. Everything else in these projects works on both.
+
+**If Send to micro:bit won't connect,** the editor may ask you to [update the micro:bit's firmware](https://microbit.org/get-started/user-guide/firmware/) (the small program that handles USB). Follow its steps, or just use Save and drag, which always works.
+
+More help: microbit.org's [getting started guide](https://microbit.org/get-started/getting-started/introduction/) and [Python editor guide](https://microbit.org/get-started/user-guide/python-editor/).
 
 ## Adding a project
 

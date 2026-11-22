@@ -58,6 +58,8 @@ The 5 × 5 lights show a dim heart, and a three-light arrow (bright tip, fading 
 
 ### Run it
 
+First time with a micro:bit? See the [setup guide](../../README.md#first-time-with-a-microbit): you'll need Chrome or Edge and a USB data cable.
+
 1. Open **[python.microbit.org](https://python.microbit.org)** and paste in (or type) [microbit/main.py](microbit/main.py).
 2. Press ▶ on the simulator to try it in the browser.
 3. Plug in a micro:bit and click **Send to micro:bit**. Or click **Save** and drag the `.hex` file onto the `MICROBIT` drive.
