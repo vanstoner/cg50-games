@@ -8,7 +8,7 @@ It's here to try ideas, break things and learn how real programs get built. Noth
 
 ```
 games/      Games you can play on the calculator
-  tetris/   A very early Tetris (a block falls, you can move it)
+  tetris/   Full Tetris, plus a step-by-step guide to building it yourself
 tools/      Handy programs and utilities (coming soon)
 docker/     The recipe for the build toolchain (you rarely need to touch this)
 emulator/   A pretend CG50 that runs in your browser (see below)
@@ -35,6 +35,8 @@ Setting these up by hand is fiddly, so it's all packed into a Docker image. GitH
 5. Eject the drive properly, unplug, and the game shows up in the calculator's main menu.
 
 ## Making something new
+
+New to this? Start with the [Tetris guide](games/tetris/README.md). It builds a whole game from an empty file, one layer at a time, and finishes with a template and ideas for making your own.
 
 1. **Copy an existing project.** Duplicate `games/tetris` into a new folder, e.g. `games/snake`.
 2. **Rename it.** In the new `CMakeLists.txt`, change `Tetris`/`tetris` to your project's name.
@@ -93,7 +95,7 @@ Want something to make? Some ideas, from easier to harder:
 - 🐍 Snake
 - 🧮 A tool for your maths homework (times tables quiz, unit converter)
 - 🏓 Pong (two players on one keypad!)
-- 🧱 Finish Tetris: rotating pieces, clearing lines, a score
+- 🧱 Build Tetris yourself with [the step-by-step guide](games/tetris/README.md), then add a hold piece or a line-clear animation
 - 👾 Space Invaders
 
 ## Learn more
