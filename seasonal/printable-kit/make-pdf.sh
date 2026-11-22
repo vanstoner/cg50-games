@@ -1,7 +1,7 @@
 #!/bin/sh
 # Turn a printable's HTML into an A4 PDF next to it, and report the page count.
 #
-#   seasonal/printable-kit/make-pdf.sh seasonal/valentines-day/beating-heart/printable/beating-heart.html
+#   seasonal/printable-kit/make-pdf.sh seasonal/valentines-day/beating-heart/printable/beating-heart-casio.html
 #
 # Needs Google Chrome or Chromium installed.
 set -e

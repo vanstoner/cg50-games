@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code a Beating Heart (micro:bit)</title>
+<link rel="stylesheet" href="../../../printable-kit/theme.css">
+<style>
+  .needs { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 6mm; }
+  .needs h3 { font-family: "Oswald", sans-serif; font-weight: 500; font-size: 9pt; color: #777; margin: 0 0 0.8mm; text-transform: uppercase; letter-spacing: 0.4pt; }
+
+  /* A micro:bit-style 5x5 grid of lights to write numbers in */
+  .leds { display: grid; grid-template-columns: repeat(5, var(--cell)); grid-template-rows: repeat(5, var(--cell));
+          gap: 1.6mm; background: #1d1d1f; padding: 3mm; border-radius: 3mm; width: max-content; }
+  .leds span { background: #fff; border-radius: 1.5mm; display: flex; align-items: center; justify-content: center;
+               font-family: "Source Code Pro", monospace; font-weight: 700; font-size: 10pt; color: #1d1d1f; }
+  .big   { --cell: 13.5mm; }
+  .med   { --cell: 8.2mm; gap: 1.3mm; padding: 2.4mm; }
+  .tiny  { --cell: 4.6mm; gap: 0.9mm; padding: 1.6mm; border-radius: 2mm; }
+  /* lit example: background shows brightness */
+  .lit span { color: #fff; font-size: 6.5pt; }
+
+  .step1 { display: grid; grid-template-columns: auto 1fr; gap: 6mm; align-items: start; margin-top: 3mm; }
+  .example { text-align: center; }
+  .example .leds { margin: 1.5mm auto; }
+  .example pre { font-family: "Source Code Pro", monospace; font-weight: 700; font-size: 10pt; line-height: 1.25; margin: 1mm 0 0; color: var(--heading); display: inline-block; text-align: left; }
+  .example p { font-size: 8.5pt; text-align: left; margin-top: 1.5mm; }
+  .scale { display: flex; gap: 0.8mm; justify-content: center; margin-top: 1.5mm; }
+  .scale span { width: 5mm; height: 5mm; border-radius: 1mm; font-size: 6.5pt; color: #fff; display: flex; align-items: center; justify-content: center; font-family: "Source Code Pro", monospace; font-weight: 700; }
+
+  .frames { display: flex; gap: 8mm; margin-top: 2.5mm; align-items: flex-start; }
+  .frames h3 { font-family: "Oswald", sans-serif; font-weight: 500; font-size: 10pt; margin: 0 0 1.2mm; }
+  .frames .hint { font-size: 8pt; color: #666; margin-top: 1.2mm; max-width: 44mm; }
+  .lower { display: grid; grid-template-columns: 1.25fr 1fr; gap: 5mm; align-items: start; }
+
+  /* Side 2 */
+  .code-cols { display: grid; grid-template-columns: max-content 1fr; gap: 5mm; align-items: start; }
+  .code-cols pre.code { font-size: 7.3pt; line-height: 1.22; padding: 2.5mm 3mm; margin: 0; }
+  .run { margin-top: 3mm; }
+  .run ol { margin: 0; padding-left: 4.5mm; }
+  .run li { font-size: 8.8pt; line-height: 1.32; margin-bottom: 0.6mm; }
+  .bottom { margin-top: 4mm; }
+  .bottom ol { margin: 0; padding-left: 4.5mm; }
+  .bottom li { font-size: 9pt; line-height: 1.34; margin-bottom: 0.6mm; }
+</style>
+</head>
+<body>
+
+<!-- ======================= SIDE 1: DESIGN IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 1 · DESIGN IT</span>
+    <p class="ss-script">Valentine</p>
+    <h1 class="ss-title">CODE A BEATING HEART</h1>
+    <p class="ss-intro">Design a heart for the micro:bit's 25 lights, then code Cupid's arrow to fly through it and make it beat. You can even fire arrows at a friend's micro:bit!</p>
+
+    <svg class="doodle" style="right: 1mm; top: 4mm; width: 36mm;" viewBox="0 0 140 110" aria-hidden="true">
+      <rect x="4" y="8" width="132" height="96" rx="10" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+      <circle cx="22" cy="56" r="8" fill="none" stroke="#1d1d1f" stroke-width="2.5"/>
+      <circle cx="118" cy="56" r="8" fill="none" stroke="#1d1d1f" stroke-width="2.5"/>
+      <text x="22" y="60" font-size="9" text-anchor="middle" font-family="Oswald" font-weight="600">A</text>
+      <text x="118" y="60" font-size="9" text-anchor="middle" font-family="Oswald" font-weight="600">B</text>
+      <g fill="#e2238c">
+        <rect x="55" y="26" width="7" height="7" rx="1.5"/><rect x="77" y="26" width="7" height="7" rx="1.5"/>
+        <rect x="44" y="37" width="7" height="7" rx="1.5"/><rect x="55" y="37" width="7" height="7" rx="1.5"/><rect x="66" y="37" width="7" height="7" rx="1.5"/><rect x="77" y="37" width="7" height="7" rx="1.5"/><rect x="88" y="37" width="7" height="7" rx="1.5"/>
+        <rect x="44" y="48" width="7" height="7" rx="1.5"/><rect x="55" y="48" width="7" height="7" rx="1.5"/><rect x="66" y="48" width="7" height="7" rx="1.5"/><rect x="77" y="48" width="7" height="7" rx="1.5"/><rect x="88" y="48" width="7" height="7" rx="1.5"/>
+        <rect x="55" y="59" width="7" height="7" rx="1.5"/><rect x="66" y="59" width="7" height="7" rx="1.5"/><rect x="77" y="59" width="7" height="7" rx="1.5"/>
+        <rect x="66" y="70" width="7" height="7" rx="1.5"/>
+      </g>
+      <g fill="#ddd">
+        <rect x="44" y="26" width="7" height="7" rx="1.5"/><rect x="66" y="26" width="7" height="7" rx="1.5"/><rect x="88" y="26" width="7" height="7" rx="1.5"/>
+        <rect x="44" y="59" width="7" height="7" rx="1.5"/><rect x="88" y="59" width="7" height="7" rx="1.5"/>
+        <rect x="44" y="70" width="7" height="7" rx="1.5"/><rect x="55" y="70" width="7" height="7" rx="1.5"/><rect x="77" y="70" width="7" height="7" rx="1.5"/><rect x="88" y="70" width="7" height="7" rx="1.5"/>
+      </g>
+      <g fill="#c9a227">
+        <rect x="10" y="92" width="10" height="12"/><rect x="40" y="92" width="10" height="12"/><rect x="70" y="92" width="10" height="12"/><rect x="100" y="92" width="10" height="12"/><rect x="124" y="92" width="8" height="12"/>
+      </g>
+    </svg>
+  </header>
+
+  <section>
+    <h2>You'll need</h2>
+    <div class="needs">
+      <div>
+        <h3>Part 1 (this side)</h3>
+        <ul class="hearts">
+          <li>A pencil</li>
+          <li>That's it!</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Part 2 (other side)</h3>
+        <ul class="hearts">
+          <li>A BBC micro:bit and its USB cable</li>
+          <li>A computer with a web browser</li>
+          <li>Optional: a friend with another micro:bit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">1</span>Design your heart</h2>
+    <p>The micro:bit has <b>25 lights</b> in a 5 × 5 square. Write a number in every light to say how bright it should be: <b>0</b> is off and <b>9</b> is as bright as it goes.</p>
+
+    <div class="step1">
+      <div class="leds big">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="example panel">
+        <h2 style="font-size: 12pt; margin: 0;">Like this!</h2>
+        <div class="leds tiny lit">
+          <span style="background:#3a3a3e">0</span><span style="background:#e2238c">9</span><span style="background:#3a3a3e">0</span><span style="background:#e2238c">9</span><span style="background:#3a3a3e">0</span>
+          <span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span>
+          <span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span>
+          <span style="background:#3a3a3e">0</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#e2238c">9</span><span style="background:#3a3a3e">0</span>
+          <span style="background:#3a3a3e">0</span><span style="background:#3a3a3e">0</span><span style="background:#e2238c">9</span><span style="background:#3a3a3e">0</span><span style="background:#3a3a3e">0</span>
+        </div>
+        <p>Then write each row as 5 numbers:</p>
+<pre>09090
+99999
+99999
+09990
+00900</pre>
+        <p>Brightness from 0 to 9:</p>
+        <div class="scale">
+          <span style="background:#3a3a3e">0</span><span style="background:#6b2346">2</span><span style="background:#8f2154">4</span><span style="background:#b52166">6</span><span style="background:#d2227a">8</span><span style="background:#e2238c">9</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lower grow">
+    <section>
+      <h2><span class="num">2</span>Design the beat</h2>
+      <p>Animations are pictures shown one after another, like a flick book. Draw two <b>frames</b>: first the little heart in the middle is bright, then the ring around it. Use small numbers (like <b>3</b>) for dim lights.</p>
+      <div class="frames">
+        <div>
+          <h3>Frame 1: inside bright</h3>
+          <div class="leds med">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div>
+          <h3>Frame 2: ring bright</h3>
+          <div class="leds med">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="box">
+      <h2>What's going on?</h2>
+      <p>Each light is an <b>LED</b>, a tiny light the computer switches on and off. Flicking it on and off super fast makes it look dimmer: that's how you get brightness 0 to 9.</p>
+      <p>Your numbers are a <b>map</b> of the picture. The program swaps between your frames so fast that the heart seems to <b>beat</b>, and Cupid's arrow flies right through it. 💘</p>
+    </div>
+  </div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>www.science-sparks.com</p>
+    <span class="pageno">1 / 2 · turn over to code it →</span>
+  </footer>
+</div>
+
+<!-- ======================= SIDE 2: CODE IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 2 · CODE IT</span>
+    <h1 class="ss-title small">CODE A BEATING HEART</h1>
+  </header>
+
+  <section>
+    <h2><span class="num">3</span>Type the code</h2>
+    <p>Go to <b>python.microbit.org</b> and type this in, putting <b>your</b> designs from Part 1 in the pink parts. Python is fussy about <b>spaces</b> at the start of lines: they show which lines belong together.</p>
+  </section>
+
+  <div class="code-cols">
+<!--CODE--><pre class="code"><span class="c"># Beating Heart for the BBC micro:bit (MicroPython)</span>
+<span class="k">from</span> microbit <span class="k">import</span> *
+<span class="k">import</span> music
+<span class="k">import</span> radio
+
+radio.on()<span class="anno">1</span>
+
+<span class="c"># Your designs! Each number is how bright that light is:</span>
+<span class="c"># 0 = off, 9 = brightest</span>
+<span class="hl">HEART = Image("09090:"<span class="anno">2</span>
+              "99999:"
+              "99999:"
+              "09990:"
+              "00900")</span>
+
+<span class="hl">BEAT_IN = Image("03030:"     <span class="c"># the little heart in the</span>
+                "39393:"     <span class="c"># middle is bright...</span>
+                "39993:"
+                "03930:"
+                "00300")</span>
+
+<span class="hl">BEAT_OUT = Image("09090:"    <span class="c"># ...then the ring</span>
+                 "93939:"    <span class="c"># around it</span>
+                 "93339:"
+                 "09390:"
+                 "00900")</span>
+
+<span class="k">def</span> cupid():<span class="anno">3</span>
+    <span class="c"># The arrow flies along the middle row, through the heart</span>
+    <span class="k">for</span> x <span class="k">in</span> <span class="k">range</span>(7):
+        picture = HEART * 0.3            <span class="c"># a dim heart behind</span><span class="anno">4</span>
+        <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(3):               <span class="c"># the arrow is 3 lights long</span><span class="anno">5</span>
+            <span class="k">if</span> 0 &lt;= x - i &lt;= 4:
+                picture.set_pixel(x - i, 2, 9 - i * 3)
+        display.show(picture)
+        sleep(90)
+    music.play(["C6:1", "E6:1", "G6:2"], wait=False)<span class="anno">6</span>
+
+cupid()
+<span class="k">while</span> <span class="k">True</span>:<span class="anno">7</span>
+    display.show(BEAT_IN)
+    sleep(150)
+    display.show(BEAT_OUT)
+    sleep(150)
+    display.show(HEART * 0.3)
+    sleep(500)
+
+    <span class="k">if</span> button_a.was_pressed():<span class="anno">8</span>
+        cupid()
+    <span class="k">if</span> button_b.was_pressed():<span class="anno">9</span>
+        radio.send("cupid")              <span class="c"># fire at a friend!</span>
+        display.show(Image.ARROW_E)
+        sleep(400)
+    <span class="k">if</span> radio.receive() == "cupid":<span class="anno">10</span>
+        cupid()</pre><!--/CODE-->
+
+    <div>
+      <h2 style="font-size: 12pt;">What each part does</h2>
+      <ol class="notes">
+        <li><span class="anno">1</span>Switch on the <b>radio</b>, so micro:bits can talk to each other.</li>
+        <li><span class="anno">2</span><b>Your designs.</b> Each <span class="mono">"…:"</span> is one row of lights.</li>
+        <li><span class="anno">3</span><span class="mono">def</span> makes a <b>function</b>: a recipe called <span class="mono">cupid</span> we can use whenever we like.</li>
+        <li><span class="anno">4</span><span class="mono">HEART * 0.3</span> makes every light 3 tenths as bright: a dim heart.</li>
+        <li><span class="anno">5</span>Light up the arrow: tip bright (9), then 6, then 3 for the tail. <span class="mono">x</span> moves it one step right each time.</li>
+        <li><span class="anno">6</span>Play a little tune when it hits.</li>
+        <li><span class="anno">7</span><b>Repeat forever:</b> frame 1, frame 2, then rest. <span class="mono">sleep(150)</span> waits 150 milliseconds.</li>
+        <li><span class="anno">8</span>Press <b>A</b> to fire another arrow.</li>
+        <li><span class="anno">9</span>Press <b>B</b> to send an arrow to a friend by radio.</li>
+        <li><span class="anno">10</span>If a friend's arrow arrives, fire it!</li>
+      </ol>
+      <div class="run">
+      <h2><span class="num">4</span>Run it!</h2>
+      <ol>
+        <li>Try it on the pretend micro:bit on the right of the page: press ▶.</li>
+        <li>Plug in your micro:bit and click <b>Send to micro:bit</b>. (Or click <b>Save</b> and drag the file onto the <b>MICROBIT</b> drive.)</li>
+        <li>Press <b>A</b> to fire again, <b>B</b> to fire at a friend.</li>
+      </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="box">
+      <h2>More fun</h2>
+      <ul>
+        <li>Change the numbers in <span class="mono">sleep(...)</span>. Can you make a racing heartbeat?</li>
+        <li>Make the arrow fly down the middle instead of across.</li>
+        <li>Challenge: add a third frame, so the beat ripples out even further.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grow"></div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>BBC micro:bit is a trademark of the Micro:bit Educational Foundation. www.science-sparks.com</p>
+    <span class="pageno">2 / 2</span>
+  </footer>
+</div>
+
+</body>
+</html>

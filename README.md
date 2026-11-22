@@ -9,7 +9,7 @@ It's here to try ideas, break things and learn how real programs get built. Noth
 ```
 games/      Games you can play on the calculator
   tetris/   Full Tetris, plus a step-by-step guide to building it yourself
-seasonal/   A project for each celebration through the year, with printables
+seasonal/   A project for each celebration through the year, with printables (Casio and micro:bit)
 tools/      Handy programs and utilities (coming soon)
 docs/       Guides, like C for Scratch and Python coders
 docker/     The recipe for the build toolchain (you rarely need to touch this)
@@ -30,7 +30,7 @@ Setting these up by hand is fiddly, so it's all packed into a Docker image. GitH
 
 ## Seasonal projects 🎄💗🎃
 
-Short projects for celebrations through the year: Valentine's Day, Easter, Halloween, Diwali, Christmas and more. Each comes with a **printable** (1–2 A4 sides) to design something on paper first, and the code to bring it to life. See the [seasonal calendar](seasonal/README.md). The first one, [Beating Heart](seasonal/valentines-day/beating-heart/), is ready to try.
+Short projects for celebrations through the year: Valentine's Day, Easter, Halloween, Diwali, Christmas and more. Each comes with a **printable** (1–2 A4 sides) to design something on paper first, and the code to bring it to life. Some projects also have a **BBC micro:bit** version in Python, so you can join in without a calculator. See the [seasonal calendar](seasonal/README.md). The first one, [Beating Heart](seasonal/valentines-day/beating-heart/), is ready to try on both.
 
 ## Getting a game onto the calculator
 
