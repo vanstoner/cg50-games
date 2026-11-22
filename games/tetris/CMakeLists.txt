@@ -13,5 +13,6 @@ if("${FXSDK_PLATFORM_LONG}" STREQUAL fxCG50)
     TARGET tetris
     OUTPUT "Tetris.g3a"
     NAME "Tetris"
+    ICONS assets-cg/icon-uns.png assets-cg/icon-sel.png
   )
 endif()

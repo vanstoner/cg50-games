@@ -7,6 +7,7 @@
 #include <gint/keyboard.h>
 #include <gint/timer.h>
 #include <gint/cpu.h>
+#include <gint/gint.h>
 #include <gint/rtc.h>
 
 #define FPS      60
@@ -250,6 +251,8 @@ static void draw(void)
 
 int main(void)
 {
+    gint_setrestart(1);
+
     srand(rtc_ticks());
     spawn_piece();
 

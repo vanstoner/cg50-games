@@ -6,6 +6,7 @@
 #include <gint/keyboard.h>
 #include <gint/timer.h>
 #include <gint/cpu.h>
+#include <gint/gint.h>
 
 #define FPS 60
 
@@ -23,6 +24,8 @@ static void draw(void)
 
 int main(void)
 {
+    gint_setrestart(1);
+
     volatile int tick = 0;
     int timer = timer_configure(TIMER_ANY, 1000000 / FPS, GINT_CALL_SET(&tick));
     if (timer < 0)

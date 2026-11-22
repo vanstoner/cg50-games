@@ -80,6 +80,7 @@ Then open **http://localhost:6080**. You'll see the calculator screen with its k
 
 - The **arrow keys** on your keyboard work. Click the on-screen buttons for everything else (like **EXIT**).
 - Each run rebuilds your game first, so you always see your latest code.
+- There's no real calculator menu in the emulator, so **EXIT** and **MENU** just restart the game.
 - Press **Ctrl+C** in the terminal to stop.
 
 The emulator is [casio-emu](https://github.com/Heath123/casio-emu). It's very good but not perfect. If something looks odd, try it on the real calculator before spending ages hunting a bug.

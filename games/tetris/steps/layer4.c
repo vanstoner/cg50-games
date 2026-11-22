@@ -6,6 +6,7 @@
 #include <gint/keyboard.h>
 #include <gint/timer.h>
 #include <gint/cpu.h>
+#include <gint/gint.h>
 
 #define FPS      60
 
@@ -126,6 +127,8 @@ static void draw(void)
 
 int main(void)
 {
+    gint_setrestart(1);
+
     board[19][0] = 1;
     board[19][1] = 2;
     board[18][0] = 3;

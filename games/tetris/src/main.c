@@ -15,6 +15,7 @@
 #include <gint/timer.h>
 #include <gint/cpu.h>
 #include <gint/rtc.h>
+#include <gint/gint.h>
 
 /* ======================================================================
  * Constants
@@ -475,6 +476,7 @@ static void draw_controls(void)
         "DOWN   soft drop",
         "EXE    hard drop",
         "F1     pause",
+        "MENU   main menu",
         "EXIT   quit",
     };
     for (unsigned i = 0; i < sizeof help / sizeof help[0]; i++)
@@ -537,6 +539,11 @@ static void draw(void)
 
 int main(void)
 {
+    /* When main() returns, the calculator would normally refuse to open
+       Tetris again until you'd been into another app. This makes gint go
+       back to the menu in a way that lets you restart straight away. */
+    gint_setrestart(1);
+
     /* A hardware timer sets `tick` to 1 sixty times a second. Each time
        round the loop we wait for it, so the game runs at the same speed
        however long drawing takes. */
@@ -559,6 +566,15 @@ int main(void)
 
         if (keypressed(KEY_EXIT))
             break;
+
+        /* MENU pops out to the calculator's main menu. If you pick Tetris
+           again, gint_osmenu() returns and the game carries on (paused). */
+        if (keypressed(KEY_MENU)) {
+            if (state == STATE_PLAYING)
+                state = STATE_PAUSED;
+            gint_osmenu();
+            clearevents();
+        }
 
         /* Layer 9: what happens depends on which screen we're on */
         switch (state) {

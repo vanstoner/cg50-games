@@ -228,6 +228,7 @@ Here's the whole program for Layer 1. Type it into your `main.c`:
 #include <gint/keyboard.h>
 #include <gint/timer.h>
 #include <gint/cpu.h>
+#include <gint/gint.h>
 
 #define FPS 60
 
@@ -245,6 +246,8 @@ static void draw(void)
 
 int main(void)
 {
+    gint_setrestart(1);
+
     volatile int tick = 0;
     int timer = timer_configure(TIMER_ANY, 1000000 / FPS, GINT_CALL_SET(&tick));
     if (timer < 0)
@@ -272,6 +275,8 @@ int main(void)
 ```
 
 `main()` is where every C program starts. When it `return`s, the program ends and the calculator goes back to its menu.
+
+> ⚠️ **Why `gint_setrestart(1)`?** Without it, after you quit with EXIT, the calculator won't open your game again until you've been into a different app first. (It tries to *resume* the game, which immediately quits again.) This line tells gint to go back to the menu in a way that lets you restart straight away. **Put it at the top of `main()` in every game you make.**
 
 ### ✅ Checkpoint
 
@@ -1365,6 +1370,7 @@ static void draw_controls(void)
         "DOWN   soft drop",
         "EXE    hard drop",
         "F1     pause",
+        "MENU   main menu",
         "EXIT   quit",
     };
     for (unsigned i = 0; i < sizeof help / sizeof help[0]; i++)
@@ -1372,9 +1378,45 @@ static void draw_controls(void)
 }
 ```
 
+### The MENU key
+
+On the calculator, players expect **MENU** to take them to the main menu. gint has a function for that, `gint_osmenu()`. If the player picks your game again from the menu, it carries on right where it was. Pause first, so the piece doesn't drop the moment you come back. In the main loop, after the EXIT check:
+
+```c
+if (keypressed(KEY_MENU)) {
+    if (state == STATE_PLAYING)
+        state = STATE_PAUSED;
+    gint_osmenu();
+    clearevents();
+}
+```
+
+You'll need `#include <gint/gint.h>`, which you already have from Layer 1. (The emulator has no real calculator menu, so there MENU just restarts the game. Try it on the real thing!)
+
 ### ✅ Checkpoint: you've built Tetris! 🎉
 
 Title screen, play, pause, game over, and play again, with a ghost, hard drop and a best score. Compare with the finished game in [src/main.c](src/main.c). Its comments say which layer each part came from.
+
+### Bonus: a menu icon
+
+Without an icon, your game shows up in MENU as a blank square. The icon is two **92×64 pixel** PNG pictures: one for normal, and one for when it's highlighted in the menu. Tell the build about them in `CMakeLists.txt`:
+
+```cmake
+generate_g3a(
+  TARGET tetris
+  OUTPUT "Tetris.g3a"
+  NAME "Tetris"
+  ICONS assets-cg/icon-uns.png assets-cg/icon-sel.png
+)
+```
+
+You can draw them in any paint program (keep them exactly 92×64). Or do what this game does: [assets-cg/make-icons.py](assets-cg/make-icons.py) is a short Python script that **draws** the icon from code, using a tiny pixel font for the word and the same "pattern of letters" idea as the board for the blocks. Change the `STACK` pattern or the colours and run it again:
+
+```bash
+docker run --rm -v "$PWD:/w" -w /w/games/tetris/assets-cg cg50-fxsdk python3 make-icons.py
+```
+
+(Run that from the top folder of the repo, using your own toolchain image's name.)
 
 ---
 
@@ -1407,6 +1449,7 @@ This is the skeleton every game in this repo can start from. It's Layers 1 and 9
 #include <gint/timer.h>
 #include <gint/cpu.h>
 #include <gint/rtc.h>
+#include <gint/gint.h>
 
 #define FPS 60
 
@@ -1446,6 +1489,8 @@ static void draw(void)
 
 int main(void)
 {
+    gint_setrestart(1);     // so EXIT doesn't stop the game reopening
+
     volatile int tick = 0;
     int timer = timer_configure(TIMER_ANY, 1000000 / FPS, GINT_CALL_SET(&tick));
     if (timer < 0)
