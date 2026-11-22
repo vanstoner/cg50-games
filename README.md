@@ -1,0 +1,85 @@
+# CG50 Playground
+
+A place to make fun things for the **Casio fx-CG50** graphing calculator: games, little tools, experiments, whatever seems cool.
+
+It's here to try ideas, break things and learn how real programs get built. Nothing has to be perfect. If it runs on the calculator and makes someone smile, it counts.
+
+## What's in here
+
+```
+games/      Games you can play on the calculator
+  tetris/   A very early Tetris (a block falls, you can move it)
+tools/      Handy programs and utilities (coming soon)
+docker/     The recipe for the build toolchain (you rarely need to touch this)
+.github/    The robots that build everything automatically
+```
+
+Each project lives in its own folder with a `CMakeLists.txt` and a `src/` folder of C code.
+
+## How it works
+
+The CG50 can't run code written on a laptop as-is. Programs have to be **compiled** into a special `.g3a` file that the calculator understands. We use:
+
+- **[gint](https://git.planet-casio.com/Lephenixnoir/gint)**: a library that lets our C code draw on the screen, read the keys and keep time.
+- **[fxSDK](https://git.planet-casio.com/Lephenixnoir/fxsdk)**: the tools that turn the C code into a `.g3a` file.
+
+Setting these up by hand is fiddly, so it's all packed into a Docker image. GitHub builds it for us.
+
+## Getting a game onto the calculator
+
+1. Open the **Actions** tab on GitHub and click the latest **Build CG50 Games** run.
+2. Download the artifact for the game (for example `tetris-g3a`) and unzip it.
+3. Plug the calculator into the computer with its USB cable. When it asks, choose **USB Flash** (press `F1`).
+4. Copy the `.g3a` file onto the calculator drive (the top folder is fine).
+5. Eject the drive properly, unplug, and the game shows up in the calculator's main menu.
+
+## Making something new
+
+1. **Copy an existing project.** Duplicate `games/tetris` into a new folder, e.g. `games/snake`.
+2. **Rename it.** In the new `CMakeLists.txt`, change `Tetris`/`tetris` to your project's name.
+3. **Add it to the build.** In `.github/workflows/build-games.yml`, add your folder name to the list:
+   ```yaml
+   game: [tetris, snake]
+   ```
+4. **Write some code** in `src/main.c`, push it to GitHub, and the robots build it for you.
+
+### Handy things to know
+
+- The screen is **396 × 224** pixels (`DWIDTH` × `DHEIGHT`).
+- Draw with `dclear`, `drect`, `dtext` and friends, then call `dupdate()` to show the frame.
+- Read keys with `pollevent()` (doesn't wait) or `getkey()` (waits for a press).
+- Colours: `C_BLACK`, `C_WHITE`, `C_RED`... or mix your own with `C_RGB(r, g, b)` (each 0–31).
+- Always give the player a way out, e.g. the `EXIT` key.
+
+### Building on your own computer (optional)
+
+If Docker is installed you can build without waiting for GitHub:
+
+```bash
+docker build -t cg50-fxsdk docker
+```
+
+```bash
+docker run --rm -v "$PWD/games/tetris:/w" -w /w cg50-fxsdk fxsdk build-cg
+```
+
+The first command takes a while (it builds a whole compiler). After that, builds take seconds.
+
+## Ideas board
+
+Want something to make? Some ideas, from easier to harder:
+
+- 🎲 Dice roller or coin flipper
+- ⏱️ Reaction-time tester
+- 🐍 Snake
+- 🧮 A tool for your maths homework (times tables quiz, unit converter)
+- 🏓 Pong (two players on one keypad!)
+- 🧱 Finish Tetris: rotating pieces, clearing lines, a score
+- 👾 Space Invaders
+
+## Learn more
+
+- [Planet Casio](https://www.planet-casio.com/): the community behind gint and fxSDK (mostly in French, but the forums are friendly)
+- Look at the code in `games/` and change things to see what happens. That's how most programmers learned.
+
+Have fun! 🎮

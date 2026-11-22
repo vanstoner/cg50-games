@@ -1,0 +1,6 @@
+# fxSDK build outputs
+build-cg/
+build-fx/
+build-cg-push/
+*.g3a
+*.g1a
