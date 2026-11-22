@@ -24,6 +24,7 @@ Some festivals follow the moon, so their dates **move each year**. Check this ye
 | UK March / US May | [Mother's Day](mothers-day/) | Flower for Mum | Loops and angles | Planned |
 | March – April *(moves)* | [Easter](easter/) | Egg Decorator | Patterns with `%` | Planned |
 | 22 April | [Earth Day](earth-day/) | Grow a Forest | Growth, branching | Planned |
+| June – August | [Rainy Day Summer](rainy-day-summer/) | **[Rainy Day Dice](rainy-day-summer/rainy-day-dice/)** | Random numbers, lists, True/False | ✅ **Ready** (micro:bit) |
 | June – August | [Rainy Day Summer](rainy-day-summer/) | Raindrop Catcher | Falling objects, collision | Planned |
 | September | [Back to School](back-to-school/) | Times Table Racer | Number input, scoring | Planned |
 | 31 October | [Halloween](halloween/) | Pumpkin Carver | Pixel art, animation | Planned |

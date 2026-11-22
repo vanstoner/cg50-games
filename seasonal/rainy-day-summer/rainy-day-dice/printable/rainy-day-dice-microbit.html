@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rainy Day Dice (micro:bit)</title>
+<link rel="stylesheet" href="../../../printable-kit/theme.css">
+<style>
+  /* Rainy-day colours */
+  :root { --accent: #5aa9e6; --accent-deep: #3d8fd1; --heading: #1f6fb2; --script: #7b4fb5; --soft: #eef6fd; --highlight: #dcecfb; }
+
+  .top { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; align-items: start; }
+  ol.play { margin: 0; padding-left: 5mm; }
+  ol.play li { font-size: 9pt; line-height: 1.34; margin-bottom: 1mm; }
+
+  .leds { display: grid; grid-template-columns: repeat(5, 4.4mm); grid-template-rows: repeat(5, 4.4mm);
+          gap: 0.9mm; background: #1d1d1f; padding: 1.6mm; border-radius: 2mm; width: max-content; flex: none; }
+  .leds span { background: #3a3a3e; border-radius: 0.8mm; }
+  .leds span.b { background: #ff4b4b; }          /* bright */
+  .leds span.d { background: #8c3a3a; }          /* dim */
+  .reading { display: grid; grid-template-columns: auto 1fr; gap: 2mm 3mm; align-items: center; margin-top: 1.5mm; }
+  .reading p { font-size: 8.6pt; line-height: 1.3; }
+  .nums { display: grid; grid-template-columns: repeat(5, 4.4mm); gap: 0.9mm; padding: 0 1.6mm; font-family: "Source Code Pro", monospace; font-weight: 700; font-size: 8pt; text-align: center; margin-top: 0.6mm; }
+
+  /* Score sheet */
+  table.score { width: 100%; border-collapse: collapse; margin-top: 1.5mm; }
+  table.score th, table.score td { border: 0.3mm solid #9aa7b3; font-size: 8.8pt; padding: 0 2mm; height: 6.6mm; }
+  table.score th { font-family: "Oswald", sans-serif; font-weight: 600; background: var(--soft); color: var(--heading); text-align: left; }
+  table.score td.cat { font-weight: 800; width: 34mm; }
+  table.score td.how { color: #555; font-size: 8pt; width: 58mm; }
+  table.score td.p { width: auto; }
+  table.score tr.total td { background: var(--soft); font-weight: 800; }
+  table.score tr.names td { height: 7.5mm; }
+  table.score tr.gap td { height: 1.5mm; border-left: none; border-right: none; padding: 0; }
+
+  /* Side 2 */
+  .code-cols { display: grid; grid-template-columns: max-content max-content; justify-content: space-between; gap: 3mm; align-items: start; }
+  .code-cols > div { width: min-content; }
+  .code-cols pre.code { font-size: 6.9pt; line-height: 1.26; padding: 2mm 2.4mm; margin: 0; }
+  .code-cols pre.code .anno { width: 3.6mm; height: 3.6mm; line-height: 3.6mm; font-size: 6.3pt; margin-left: 1mm; }
+  ol.notes.two { display: grid; grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 6mm; margin-top: 3mm; }
+  ol.notes.two li { margin-bottom: 1.2mm; font-size: 8.5pt; line-height: 1.28; }
+  .bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; margin-top: 2mm; }
+  .bottom ol { margin: 0; padding-left: 4.5mm; }
+  .bottom li { font-size: 8.7pt; line-height: 1.32; }
+</style>
+</head>
+<body>
+
+<!-- ======================= SIDE 1: PLAY IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 1 · PLAY IT</span>
+    <p class="ss-script">Rainy day</p>
+    <h1 class="ss-title">RAINY DAY DICE</h1>
+    <p class="ss-intro">Turn a micro:bit into five dice! Shake to roll, hold the ones you want, and score them on this sheet. A dice game for 2 to 4 players.</p>
+
+    <svg class="doodle" style="right: 2mm; top: 0mm; width: 40mm;" viewBox="0 0 160 120" aria-hidden="true">
+      <path d="M40 40 C 40 18, 72 10, 84 28 C 96 14, 128 20, 124 44 C 140 46, 142 70, 122 72 L 42 72 C 22 72, 20 44, 40 40 Z" fill="#eef6fd" stroke="#1d1d1f" stroke-width="3" stroke-linejoin="round"/>
+      <g stroke="#5aa9e6" stroke-width="3.5" stroke-linecap="round">
+        <line x1="50" y1="82" x2="46" y2="94"/><line x1="72" y1="82" x2="68" y2="94"/><line x1="94" y1="82" x2="90" y2="94"/><line x1="116" y1="82" x2="112" y2="94"/>
+      </g>
+      <g transform="translate(8 74) rotate(-14)">
+        <rect width="34" height="34" rx="6" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+        <circle cx="9" cy="9" r="3.2"/><circle cx="25" cy="9" r="3.2"/><circle cx="17" cy="17" r="3.2"/><circle cx="9" cy="25" r="3.2"/><circle cx="25" cy="25" r="3.2"/>
+      </g>
+      <g transform="translate(118 78) rotate(12)">
+        <rect width="30" height="30" rx="5" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+        <circle cx="8" cy="8" r="3"/><circle cx="22" cy="22" r="3"/>
+      </g>
+    </svg>
+  </header>
+
+  <div class="top">
+    <section>
+      <h2><span class="num">1</span>How to play</h2>
+      <ol class="play">
+        <li><b>Shake</b> the micro:bit to roll all five dice.</li>
+        <li>Want to keep some? Press <b>A</b> to pick a die, and <b>B</b> to hold it (<b>beep beep</b>) or let it go again (<b>looong beep</b>).</li>
+        <li><b>Shake</b> again to roll the dice you didn't hold. You get <b>3 rolls</b> in a turn.</li>
+        <li>After the third roll the micro:bit plays a tune and scrolls your five numbers. Choose one empty box below and write your score in it.</li>
+        <li>Pass it on: the next player shakes to start their turn.</li>
+      </ol>
+      <p style="margin-top: 1.5mm; font-size: 8.6pt;">After 13 turns each, every box is full. The highest <b>grand total</b> wins!</p>
+    </section>
+
+    <section>
+      <h2><span class="num">2</span>Reading the dice</h2>
+      <div class="reading">
+        <div>
+          <div class="leds">
+            <span></span><span></span><span></span><span></span><span class="d"></span>
+            <span></span><span></span><span></span><span class="b"></span><span class="d"></span>
+            <span></span><span class="b"></span><span></span><span class="b"></span><span class="d"></span>
+            <span></span><span class="b"></span><span class="d"></span><span class="b"></span><span class="d"></span>
+            <span class="d"></span><span class="b"></span><span class="d"></span><span class="b"></span><span class="d"></span>
+          </div>
+          <div class="nums"><span>1</span><span>3</span><span>2</span><span>4</span><span>6</span></div>
+        </div>
+        <p><b>Each column is a die.</b> Count the lights from the bottom. A <b>6</b> is too tall to fit, so its column <b>flashes</b>. <b>Bright</b> dice are held; <b>dim</b> ones will roll.</p>
+        <div class="leds">
+          <span class="b"></span><span></span><span></span><span></span><span class="b"></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span class="b"></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span class="b"></span><span></span><span></span><span></span><span class="b"></span>
+        </div>
+        <p><b>Press A</b> to look at one die close up. It shows the die's number first (1 to 5), then its face. Keep pressing A to go back to all five.</p>
+      </div>
+    </section>
+  </div>
+
+  <section style="margin-top: 1mm;">
+    <h2><span class="num">3</span>Score sheet</h2>
+    <table class="score">
+      <tr><th>Box</th><th>Score</th><th>Player 1</th><th>Player 2</th><th>Player 3</th><th>Player 4</th></tr>
+      <tr class="names"><td class="cat">Names</td><td class="how"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Ones</td><td class="how">Add up only the 1s</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Twos</td><td class="how">Add up only the 2s</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Threes</td><td class="how">Add up only the 3s</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Fours</td><td class="how">Add up only the 4s</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Fives</td><td class="how">Add up only the 5s</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Sixes</td><td class="how">Add up only the 6s</td><td></td><td></td><td></td><td></td></tr>
+      <tr class="total"><td class="cat">Bonus</td><td class="how">35 if Ones to Sixes make 63 or more</td><td></td><td></td><td></td><td></td></tr>
+      <tr class="gap"><td colspan="6"></td></tr>
+      <tr><td class="cat">Three of a kind</td><td class="how">3 the same: add up all 5 dice</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Four of a kind</td><td class="how">4 the same: add up all 5 dice</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Full house</td><td class="how">3 of one + 2 of another: 25</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Small straight</td><td class="how">4 in a row, like 2 3 4 5: 30</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Large straight</td><td class="how">5 in a row, like 1 2 3 4 5: 40</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Five of a kind</td><td class="how">All 5 the same: 50!</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="cat">Chance</td><td class="how">Anything: add up all 5 dice</td><td></td><td></td><td></td><td></td></tr>
+      <tr class="total"><td class="cat">Grand total</td><td class="how">Add up every box</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p style="font-size: 8pt; color: #666; margin-top: 1.2mm;">Your dice don't fit any empty box? You must still pick one and score 0 in it. Print this side again for more games!</p>
+  </section>
+
+  <div class="grow"></div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>www.science-sparks.com</p>
+    <span class="pageno">1 / 2 · turn over to code it →</span>
+  </footer>
+</div>
+
+<!-- ======================= SIDE 2: CODE IT ======================= -->
+<div class="page">
+  <header class="ss-header">
+    <span class="ss-part">PART 2 · CODE IT</span>
+    <h1 class="ss-title small">RAINY DAY DICE</h1>
+  </header>
+
+  <section style="margin-bottom: 2.5mm;">
+    <h2><span class="num">4</span>Type the code</h2>
+    <p>Go to <b>python.microbit.org</b> and type in both halves, left then right. Python is fussy about the <b>spaces</b> at the start of lines: they show which lines belong together.</p>
+  </section>
+
+  <div class="code-cols">
+<!--CODE_A--><pre class="code"><span class="c"># Rainy Day Dice for the BBC micro:bit (MicroPython)</span>
+<span class="k">from</span> microbit <span class="k">import</span> *
+<span class="k">import</span> music
+<span class="k">import</span> random
+
+<span class="c"># The six dice faces: 9 = a dot, 0 = no dot</span><span class="anno">1</span>
+FACES = [Image("00000:00000:00900:00000:00000"),
+         Image("00009:00000:00000:00000:90000"),
+         Image("00009:00000:00900:00000:90000"),
+         Image("90009:00000:00000:00000:90009"),
+         Image("90009:00000:00900:00000:90009"),
+         Image("90009:00000:90009:00000:90009")]
+
+dice = [1, 1, 1, 1, 1]   <span class="c"># the five dice</span><span class="anno">2</span>
+held = [False] * 5       <span class="c"># which dice are held</span>
+rolls = 0                <span class="c"># rolls used (3 max)</span>
+chosen = -1              <span class="c"># picked die (-1 = none)</span>
+
+<span class="k">def</span> show_dice():<span class="anno">3</span>
+    <span class="c"># One column per die: count the lights</span>
+    picture = Image(5, 5)
+    flash = running_time() // 300 % 2
+    <span class="k">for</span> x <span class="k">in</span> <span class="k">range</span>(5):
+        height = dice[x]
+        <span class="k">if</span> height == 6:
+            height = 5 * flash   <span class="c"># too tall: flash</span>
+        level = 3                <span class="c"># dim = not held</span>
+        <span class="k">if</span> held[x]:
+            level = 9            <span class="c"># bright = held</span>
+        <span class="k">for</span> y <span class="k">in</span> <span class="k">range</span>(height):
+            picture.set_pixel(x, 4 - y, level)
+    display.show(picture)
+
+<span class="k">def</span> roll():<span class="anno">4</span>
+    <span class="c"># Rattle, then roll the dice that aren't held</span>
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(8):
+        display.show(random.choice(FACES))
+        music.pitch(random.randint(200, 800), 40)
+    <span class="k">for</span> x <span class="k">in</span> <span class="k">range</span>(5):
+        <span class="k">if</span> <span class="k">not</span> held[x]:
+            dice[x] = random.randint(1, 6)</pre><!--/CODE_A-->
+<!--CODE_B--><pre class="code">display.scroll("SHAKE!")
+<span class="k">while</span> <span class="k">True</span>:
+    <span class="k">if</span> accelerometer.was_gesture("shake"):<span class="anno">5</span>
+        <span class="k">if</span> rolls == 3:          <span class="c"># next player's go</span>
+            held = [False] * 5
+            rolls = 0
+        roll()
+        rolls = rolls + 1
+        chosen = -1
+        <span class="k">if</span> rolls == 3:          <span class="c"># turn over: write it down</span><span class="anno">6</span>
+            music.play(music.POWER_UP)
+            text = ""
+            <span class="k">for</span> d <span class="k">in</span> dice:
+                text = text + str(d) + " "
+            display.scroll(text)
+        else:
+            display.show(3 - rolls)  <span class="c"># rolls left</span>
+            sleep(600)
+
+    <span class="k">if</span> button_a.was_pressed() <span class="k">and</span> rolls &gt; 0:<span class="anno">7</span>
+        chosen = chosen + 1
+        <span class="k">if</span> chosen == 5:
+            chosen = -1         <span class="c"># back to all five</span>
+        else:
+            display.show(chosen + 1)  <span class="c"># which die</span>
+            sleep(300)
+
+    <span class="k">if</span> button_b.was_pressed() <span class="k">and</span> chosen &gt;= 0 <span class="k">and</span> rolls &lt; 3:<span class="anno">8</span>
+        held[chosen] = <span class="k">not</span> held[chosen]
+        <span class="k">if</span> held[chosen]:
+            music.pitch(880, 100)  <span class="c"># beep beep = held</span>
+            sleep(80)
+            music.pitch(880, 100)
+        else:
+            music.pitch(440, 500)  <span class="c"># long beep = cleared</span>
+
+    <span class="k">if</span> rolls == 0:<span class="anno">9</span>
+        display.show("?")
+    elif chosen &gt;= 0:
+        face = FACES[dice[chosen] - 1]
+        <span class="k">if</span> <span class="k">not</span> held[chosen]:
+            face = face * 0.3
+        display.show(face)
+    else:
+        show_dice()
+    sleep(50)</pre><!--/CODE_B-->
+  </div>
+
+  <ol class="notes two">
+    <li><span class="anno">1</span><b>The dice faces</b>, as pictures. You could design your own!</li>
+    <li><span class="anno">2</span><b>Lists</b> hold lots of values: five dice, and five <span class="mono">True</span>/<span class="mono">False</span> for which are held.</li>
+    <li><span class="anno">3</span>Draw every die as a column of lights, bright if it's held.</li>
+    <li><span class="anno">4</span><span class="mono">random.randint(1, 6)</span> picks a number from 1 to 6, like a real die. Held dice are skipped.</li>
+    <li><span class="anno">5</span><b>Shake</b> to roll. After 3 rolls, the next shake starts a new turn.</li>
+    <li><span class="anno">6</span>Turn over: a tune, then scroll the five numbers to write down.</li>
+    <li><span class="anno">7</span><b>A</b> picks the next die. After die 5, it goes back to showing all five.</li>
+    <li><span class="anno">8</span><b>B</b> flips the picked die between held and not held. <span class="mono">not</span> turns True into False and back.</li>
+    <li><span class="anno">9</span>What to show: <span class="mono">?</span> before the first roll, one die close up, or all five.</li>
+  </ol>
+
+  <div class="bottom">
+    <div>
+      <h2><span class="num">5</span>Run it!</h2>
+      <ol>
+        <li>Press ▶ on the pretend micro:bit to test it. Use its <b>shake</b> button to roll.</li>
+        <li>Plug in your micro:bit and click <b>Send to micro:bit</b> (Chrome or Edge), or <b>Save</b> and drag the file onto the <b>MICROBIT</b> drive.</li>
+        <li>The beeps need a micro:bit <b>V2</b>. A V1 plays silently.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h2>More fun</h2>
+      <ul>
+        <li>Make held dice flash instead of shining brightly.</li>
+        <li>Give each player 4 rolls. Which number do you change?</li>
+        <li>Challenge: make the micro:bit spot <b>five of a kind</b> and play a fanfare!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grow"></div>
+
+  <footer class="ss-footer">
+    <div class="logo-slot">Science Sparks<br>logo here</div>
+    <p class="legal"><b>Science Sparks ™</b><br>Adult supervision required. You are responsible for your own safety.<br>BBC micro:bit is a trademark of the Micro:bit Educational Foundation. www.science-sparks.com</p>
+    <span class="pageno">2 / 2</span>
+  </footer>
+</div>
+
+</body>
+</html>
